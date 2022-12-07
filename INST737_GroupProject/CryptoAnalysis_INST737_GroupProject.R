@@ -1,0 +1,201 @@
+#Importing Dataset from local storage
+Data <- read.csv("C:/Users/Misha/Desktop/School/MIM_FALL_2022/INST737/INST737_GroupProject/FinalCleanedDataset.csv")
+
+#Creating numeric fiscal quarters column in Data frame
+AnnualQuarters <- Data$ï..Date
+CleanQuarters <- as.Date(AnnualQuarters)
+QuartersFinal <- quarters(CleanQuarters)
+QuartersNumeric <- print(sub("Q", "", QuartersFinal))
+Data$Quarters <- as.numeric(QuartersNumeric)
+
+
+
+#Simple linear regression combinations using Bitcoin as the explanatory variable
+Bitcoin_Predicts_Ether <- lm(Data$ETH_price ~ Data$BTC_price)
+summary(Bitcoin_Predicts_Ether)
+
+Bitcoin_Predicts_Binance <- lm(Data$BNB_price ~ Data$BTC_price)
+summary(Bitcoin_Predicts_Binance)
+
+Bitcoin_Predicts_Ripple <- lm(Data$XRP_price ~ Data$BTC_price)
+summary(Bitcoin_Predicts_Ripple)
+
+Bitcoin_Predicts_LiteCoin <- lm(Data$LTC_price ~ Data$BTC_price)
+summary(Bitcoin_Predicts_LiteCoin)
+
+
+
+#Simple linear regression combinations using Ethereum as the explanatory variable
+Ether_Predicts_Bitcoin <- lm(Data$BTC_price ~ Data$ETH_price)
+summary(Ether_Predicts_Bitcoin)
+
+Ether_Predicts_Binance <- lm(Data$BNB_price ~ Data$ETH_price)
+summary(Ether_Predicts_Binance)
+
+Ether_Predicts_Ripple <- lm(Data$XRP_price ~ Data$ETH_price)
+summary(Ether_Predicts_Ripple)
+
+Ether_Predicts_LiteCoin <- lm(Data$LTC_price ~ Data$ETH_price)
+summary(Ether_Predicts_LiteCoin)
+
+
+
+#Simple linear regression combinations using Binance as the explanatory variable
+Binance_Predicts_Bitcoin <- lm(Data$BTC_price ~ Data$BNB_price)
+summary(Binance_Predicts_Bitcoin)
+
+Binance_Predicts_Ether <- lm(Data$ETH_price ~ Data$BNB_price)
+summary(Binance_Predicts_Ether)
+
+Binance_Predicts_Ripple <- lm(Data$XRP_price ~ Data$BNB_price)
+summary(Binance_Predicts_Ripple)
+
+Binance_Predicts_LiteCoin <- lm(Data$LTC_price ~ Data$BNB_price)
+summary(Binance_Predicts_LiteCoin)
+
+
+
+#Simple linear regression combinations using Ripple as the explanatory variable
+Ripple_Predicts_Bitcoin <- lm(Data$BTC_price ~ Data$XRP_price)
+summary(Ripple_Predicts_Bitcoin)
+
+Ripple_Predicts_Ether <- lm(Data$ETH_price ~ Data$XRP_price)
+summary(Ripple_Predicts_Ether)
+
+Ripple_Predicts_Binance <- lm(Data$BNB_price ~ Data$XRP_price)
+summary(Ripple_Predicts_Binance)
+
+Ripple_Predicts_LiteCoin <- lm(Data$LTC_price ~ Data$XRP_price)
+summary(Ripple_Predicts_LiteCoin)
+
+
+
+#Simple linear regression combinations using Litecoin as the explanatory variable
+Litecoin_Predicts_Bitcoin <- lm(Data$BTC_price ~ Data$LTC_price)
+summary(Litecoin_Predicts_Bitcoin)
+
+Litecoin_Predicts_Ether <- lm(Data$ETH_price ~ Data$LTC_price)
+summary(Litecoin_Predicts_Ether)
+
+Litecoin_Predicts_Ripple <- lm(Data$XRP_price ~ Data$LTC_price)
+summary(Litecoin_Predicts_Ripple)
+
+Litecoin_Predicts_Binance <- lm(Data$BNB_price ~ Data$LTC_price)
+summary(Litecoin_Predicts_Binance)
+
+
+
+#Simple linear regression combinations using NASDAQ as the explanatory variable
+NASDAQ_Predicts_Bitcoin <- lm(Data$BTC_price ~ Data$NASDAQ_Comp_Price)
+summary(NASDAQ_Predicts_Bitcoin)
+
+NASDAQ_Predicts_Ether <- lm(Data$ETH_price ~ Data$NASDAQ_Comp_Price)
+summary(NASDAQ_Predicts_Ether)
+
+NASDAQ_Predicts_Ripple <- lm(Data$XRP_price ~ Data$NASDAQ_Comp_Price)
+summary(NASDAQ_Predicts_Ripple)
+
+NASDAQ_Predicts_Binance <- lm(Data$BNB_price ~ Data$NASDAQ_Comp_Price)
+summary(NASDAQ_Predicts_Binance)
+
+NASDAQ_Predicts_LiteCoin <- lm(Data$LTC_price ~ Data$NASDAQ_Comp_Price)
+summary(NASDAQ_Predicts_LiteCoin)
+
+
+
+#Simple linear regression combinations using Fiscal Quarters as the explanatory variable
+Quarters_Predicts_Bitcoin <- lm(Data$BTC_price ~ Data$Quarters)
+summary(Quarters_Predicts_Bitcoin)
+
+Quarters_Predicts_Ether <- lm(Data$ETH_price ~ Data$Quarters)
+summary(Quarters_Predicts_Ether)
+
+Quarters_Predicts_Ripple <- lm(Data$XRP_price ~ Data$Quarters)
+summary(Quarters_Predicts_Ripple)
+
+Quarters_Predicts_Binance <- lm(Data$BNB_price ~ Data$Quarters)
+summary(Quarters_Predicts_Binance)
+
+Quarters_Predicts_LiteCoin <- lm(Data$LTC_price ~ Data$Quarters)
+summary(Quarters_Predicts_LiteCoin)
+
+Quarters_Predicts_NASDAQ <- lm(Data$NASDAQ_Comp_Price ~ Data$Quarters)
+summary(Quarters_Predicts_NASDAQ)
+
+
+
+#Plots for some simple linear regressions
+plot(Data$NASDAQ_Comp_Price, Data$BTC_price, col = "orange", main = "Price of NASDAQ vs Price of Bitcoin", xlab = "NASDAQ Composite Price (USD)", ylab = "Price of Bitcoin (USD)")
+abline(NASDAQ_Predicts_Bitcoin)
+
+plot(Data$NASDAQ_Comp_Price, Data$ETH_price, col = "blue", main = "Price of NASDAQ vs Price of Ethereum", xlab = "NASDAQ Composite Price (USD)", ylab = "Price of Ethereum (USD)")
+abline(NASDAQ_Predicts_Ether)
+
+plot(Data$ETH_price, Data$BNB_price, col = "green", main = "Price of Ethereum vs Price of Binance", xlab = "Price of Ethereum (USD)", ylab = "Price of Binance (USD)")
+abline(Ether_Predicts_Binance)
+
+plot(Data$ETH_price, Data$BTC_price, col = "red", main = "Price of Ethereum vs Price of Bitcoin", xlab = "Price of Ethereum (USD)", ylab = "Price of Bitcoin (USD)")
+abline(Ether_Predicts_Bitcoin) 
+
+
+
+#Multiple Linear regressions
+NASDAQ_And_Quarters_Predicts_Bitcoin <- lm(Data$BTC_price ~ Data$NASDAQ_Comp_Price + Data$Quarters)
+summary(NASDAQ_And_Quarters_Predicts_Bitcoin)
+
+NASDAQ_And_Quarters_Predicts_Ether <- lm(Data$ETH_price ~ Data$NASDAQ_Comp_Price + Data$Quarters)
+summary(NASDAQ_And_Quarters_Predicts_Ether)
+
+NASDAQ_And_Quarters_Predicts_Ripple <- lm(Data$XRP_price ~ Data$NASDAQ_Comp_Price + Data$Quarters)
+summary(NASDAQ_And_Quarters_Predicts_Ripple)
+
+NASDAQ_And_Quarters_Predicts_Binance <- lm(Data$BNB_price ~ Data$NASDAQ_Comp_Price + Data$Quarters)
+summary(NASDAQ_And_Quarters_Predicts_Binance)
+
+NASDAQ_And_Quarters_Predicts_LiteCoin <- lm(Data$LTC_price ~ Data$NASDAQ_Comp_Price + Data$Quarters)
+summary(NASDAQ_And_Quarters_Predicts_LiteCoin)
+
+
+
+Bitcoin_And_Quarters_Predicts_Ether <- lm(Data$ETH_price ~ Data$BTC_price + Data$Quarters)
+summary(Bitcoin_And_Quarters_Predicts_Ether)
+
+Bitcoin_And_Quarters_Predicts_Ripple <- lm(Data$XRP_price ~ Data$BTC_price + Data$Quarters)
+summary(Bitcoin_And_Quarters_Predicts_Ripple)
+
+Bitcoin_And_Quarters_Predicts_Binance <- lm(Data$BNB_price ~ Data$BTC_price + Data$Quarters)
+summary(Bitcoin_And_Quarters_Predicts_Binance)
+
+Bitcoin_And_Quarters_Predicts_LiteCoin <- lm(Data$LTC_price ~ Data$BTC_price + Data$Quarters)
+summary(Bitcoin_And_Quarters_Predicts_LiteCoin)
+
+Bitcoin_And_Quarters_Predicts_NASDAQ <- lm(Data$NASDAQ_Comp_Price ~ Data$BTC_price + Data$Quarters)
+summary(Bitcoin_And_Quarters_Predicts_NASDAQ)
+
+
+
+Bitcoin_And_Ether_Predicts_Ripple <- lm(Data$XRP_price ~ Data$BTC_price + Data$ETH_price)
+summary(Bitcoin_And_Ether_Predicts_Ripple)
+
+Bitcoin_And_Ether_Predicts_Binance <- lm(Data$BNB_price ~ Data$BTC_price + Data$ETH_price)
+summary(Bitcoin_And_Ether_Predicts_Binance)
+
+Bitcoin_And_Ether_Predicts_LiteCoin <- lm(Data$LTC_price ~ Data$BTC_price + Data$ETH_price)
+summary(Bitcoin_And_Ether_Predicts_LiteCoin)
+
+Bitcoin_And_Ether_Predicts_NASDAQ <- lm(Data$NASDAQ_Comp_Price ~ Data$BTC_price + Data$ETH_price)
+summary(Bitcoin_And_Ether_Predicts_NASDAQ)
+
+
+
+Bitcoin_Ether_And_Quarters_Predicts_Ripple <- lm(Data$XRP_price ~ Data$BTC_price + Data$ETH_price + Data$Quarters)
+summary(Bitcoin_Ether_And_Quarters_Predicts_Ripple)
+
+Bitcoin_Ether_And_Quarters_Predicts_Binance <- lm(Data$BNB_price ~ Data$BTC_price + Data$ETH_price + Data$Quarters)
+summary(Bitcoin_Ether_And_Quarters_Predicts_Binance)
+
+Bitcoin_Ether_And_Quarters_Predicts_LiteCoin <- lm(Data$LTC_price ~ Data$BTC_price + Data$ETH_price + Data$Quarters)
+summary(Bitcoin_Ether_And_Quarters_Predicts_LiteCoin)
+
+Bitcoin_Ether_And_Quarters_Predicts_NASDAQ <- lm(Data$NASDAQ_Comp_Price ~ Data$BTC_price + Data$ETH_price + Data$Quarters)
+summary(Bitcoin_Ether_And_Quarters_Predicts_NASDAQ)
